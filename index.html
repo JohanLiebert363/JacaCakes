@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JacaCakes</title>
+
+  <style>
+    :root {
+      --white: #ffffff;
+      --soft-pink: #ffe6f0;
+      --pink: #f7b2cc;
+      --dark-pink: #e88ab0;
+      --text: #3a3a3a;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", system-ui, sans-serif;
+    }
+
+    body {
+      background: var(--soft-pink);
+      color: var(--text);
+    }
+
+    /* HEADER */
+    header {
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(2px);
+      padding: 20px 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo-box {
+      background: white;
+      padding: 12px 20px;
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(232,138,176,0.35);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-box img {
+      height: 55px;
+    }
+
+    .logo-text {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--dark-pink);
+    }
+
+    nav a {
+      margin-left: 28px;
+      text-decoration: none;
+      color: rgb(70, 48, 51);
+      font-weight: 500;
+      font-size: 25px;
+    }
+
+    nav a:hover {
+      color: var(--dark-pink);
+    }
+
+
+    /* HERO */
+    .hero {
+      padding: 120px 30px;
+      background: radial-gradient(circle at top, #ffffff 0%, var(--soft-pink) 65%);
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 48px;
+      color: var(--dark-pink);
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      max-width: 620px;
+      margin: auto;
+      font-size: 21px;
+      opacity: 0.85;
+      margin-bottom: 35px;
+    }
+
+    .btn {
+      background: linear-gradient(135deg, var(--pink), var(--dark-pink));
+      color: white;
+      padding: 16px 42px;
+      border-radius: 40px;
+      text-decoration: none;
+      font-weight: 600;
+      box-shadow: 0 12px 30px rgba(232,138,176,0.45);
+      display: inline-block;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+    }
+
+    section {
+      padding: 80px 50px;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 34px;
+      margin-bottom: 60px;
+      color: var(--dark-pink);
+    }
+
+    /* CAKES */
+    .cakes {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 40px;
+    }
+
+    .cake-card {
+      background: white;
+      border-radius: 26px;
+      padding: 22px;
+      text-align: center;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+    }
+
+    .cake-card img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 18px;
+      margin-bottom: 16px;
+    }
+
+    .cake-card h3 {
+      color: var(--dark-pink);
+      margin-bottom: 8px;
+    }
+
+    /* ABOUT */
+    .about {
+      background: white;
+      border-radius: 36px;
+      max-width: 900px;
+      margin: auto;
+      padding: 55px;
+      text-align: center;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+    }
+
+    .about p {
+      font-size: 21px;
+      line-height: 1.8;
+      color: rgb(70, 48, 51);
+    }
+
+    /* CONTACT */
+    .contact {
+        max-width: 900px;
+        margin: auto;
+        background: linear-gradient(135deg, #ffffff, var(--soft-pink));
+        border-radius: 36px;
+        padding: 100px;
+        text-align: center;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        margin-top: 60px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+
+    .contact p {
+      font-size: 21px;
+      margin-bottom: 30px;
+    }
+
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+
+    .contact-links a {
+      background: white;
+      padding: 20px 40px;
+      border-radius: 30px;
+      text-decoration: none;
+      color: var(--dark-pink);
+      font-weight: 600;
+      box-shadow: 0 10px 25px rgba(232,138,176,0.35);
+    }
+
+    .contact-links a:hover {
+      transform: translateY(-4px);
+    }
+
+    footer {
+      background: white;
+      text-align: center;
+      padding: 30px;
+      color: #777;
+      margin-top: 80px;
+      font-size: 14px;
+    }
+
+    @media (max-width: 600px) {
+      header {
+        flex-direction: column;
+        gap: 18px;
+      }
+
+      nav a {
+        margin: 0 12px;
+      }
+
+      .hero h1 {
+        font-size: 34px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo-box">
+    <img src="logo1.jpeg" alt="JacaCakes logo">
+    <span class="logo-text">JacaCakes</span>
+  </div>
+
+  <nav>
+    <a href="#">Početna</a>
+    <a href="#cakes">Torte</a>
+    <a href="#about">O nama</a>
+    <a href="#contact">Kontakt</a>
+  </nav>
+</header>
+
+<div class="hero">
+  <h1>Torte za svaku priliku</h1>
+  <p>Ručno pravljene, elegantne i nezaboravne — jer svaki trenutak zaslužuje savršenu tortu.</p>
+  <a href="#contact" class="btn">Poruči tortu</a>
+</div>
+
+<section id="cakes">
+  <h2 class="section-title">Naše torte</h2>
+  <div class="cakes">
+    <div class="cake-card">
+      <img src="Cake3.jpeg">
+      <h3>Plazma bombice</h3>
+      <p>Domaći ukus.</p>
+    </div>
+    <div class="cake-card">
+      <img src="Cake2.jpeg">
+      <h3>Dubai cheesecake</h3>
+      <p>Luksuzna kombinacija.</p>
+    </div>
+    <div class="cake-card">
+      <img src="Cake4.jpeg">
+      <h3>Cheesecake malina</h3>
+      <p>Savršeno balansiran.</p>
+    </div>
+  </div>
+</section>
+
+<section id="about" class="about">
+  <h2 class="section-title">O nama</h2>
+  <p>
+    JacaCakes je mali porodični brend fokusiran na kvalitet, estetiku i vrhunski ukus.
+    Svaka torta se pravi ručno, sa pažnjom i ljubavlju.
+  </p>
+</section>
+
+<section id="contact" class="contact">
+  <h2 class="section-title">Kontakt</h2>
+  <p>Pišite nam i poručite svoju savršenu tortu ✨</p>
+
+  <div class="contact-links">
+    <a href="https://www.instagram.com/jaca_jass89/" target="_blank">Instagram</a>
+    <a href="https://wa.me/381616385660">WhatsApp</a>
+    <a href="tel:+381616385660">Telefon</a>
+  </div>
+</section>
+
+<footer>
+  © 2025 JacaCakes · Sva prava zadržana
+</footer>
+
+</body>
+</html>

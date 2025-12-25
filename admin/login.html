@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>JacaCakes Admin — Login</title>
+  <style>body{font-family:Arial,Helvetica,sans-serif;max-width:720px;margin:40px auto}label{display:block;margin:8px 0}input{padding:8px;width:100%;box-sizing:border-box}button{padding:10px 14px;margin-top:12px}</style>
+</head>
+<body>
+  <h1>Admin Login</h1>
+  <form id="loginForm">
+    <label>Username
+      <input name="username" required />
+    </label>
+    <label>Password
+      <input name="password" type="password" required />
+    </label>
+    <button type="submit">Login</button>
+  </form>
+
+  <div id="msg" style="color:red;margin-top:12px"></div>
+
+  <script>
+    // Set your backend URL here (change to deployed backend when ready)
+    const BACKEND = 'http://localhost:3000';
+
+    const form = document.getElementById('loginForm');
+    const msg = document.getElementById('msg');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      msg.textContent = '';
+      const fd = new FormData(form);
+      const body = { username: fd.get('username'), password: fd.get('password') };
+      try {
+        const res = await fetch(BACKEND + '/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify(body)
+        });
+        const j = await res.json();
+        if (!res.ok) throw new Error(j.error || 'Login failed');
+        // success — go to dashboard
+        window.location.href = 'dashboard.html';
+      } catch (err) {
+        msg.textContent = err.message;
+      }
+    });
+  </script>
+</body>
+</html>
