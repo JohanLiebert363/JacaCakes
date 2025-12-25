@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>JacaCakes Admin — Dashboard</title>
+  <style>body{font-family:Arial,Helvetica,sans-serif;max-width:960px;margin:24px auto}img{max-width:200px;height:auto;border-radius:6px}form{margin-bottom:18px}label{display:block;margin:8px 0}input,textarea{width:100%;padding:8px;box-sizing:border-box}</style>
+</head>
+<body>
+  <h1>Dashboard</h1>
+  <button id="logout">Logout</button>
+  <h2>Upload Cake</h2>
+  <form id="uploadForm">
+    <label>Title<input name="title" /></label>
+    <label>Description<textarea name="description"></textarea></label>
+    <label>Image<input name="image" type="file" accept="image/*" required /></label>
+    <button type="submit">Upload</button>
+  </form>
+
+  <h2>Existing Cakes</h2>
+  <div id="list"></div>
+
+  <script>
+    // Set your backend URL here
+    const BACKEND = 'http://localhost:3000';
+
+    const listEl = document.getElementById('list');
+    const frm = document.getElementById('uploadForm');
+    const logoutBtn = document.getElementById('logout');
+
+    async function checkAuth() {
+      try {
+        const r = await fetch(BACKEND + '/auth/me', { credentials: 'include' });
+        if (r.status !== 200) return window.location.href = 'login.html';
+      } catch (e) { window.location.href = 'login.html'; }
+    }
+
+    async function loadCakes() {
+      listEl.textContent = 'Loading...';
+      try {
+        const r = await fetch(BACKEND + '/api/cakes');
+        const j = await r.json();
+        listEl.innerHTML = '';
+        if (!j.cakes || j.cakes.length === 0) { listEl.textContent = 'No cakes yet.'; return; }
+        j.cakes.forEach(c => {
+          const div = document.createElement('div');
+          const img = document.createElement('img');
+          img.src = (c.image_path.startsWith('http') ? c.image_path : BACKEND + c.image_path);
+          const h = document.createElement('h3'); h.textContent = c.title || 'Untitled';
+          const p = document.createElement('p'); p.textContent = c.description || '';
+          div.append(h, img, p);
+          div.style.marginBottom = '18px';
+          listEl.appendChild(div);
+        });
+      } catch (err) { listEl.textContent = 'Failed to load cakes'; }
+    }
+
+    frm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const data = new FormData(frm);
+      try {
+        const r = await fetch(BACKEND + '/admin/upload', {
+          method: 'POST',
+          credentials: 'include',
+          body: data
+        });
+        const j = await r.json();
+        if (!r.ok) throw new Error(j.error || 'Upload failed');
+        await loadCakes();
+        frm.reset();
+      } catch (err) { alert(err.message); }
+    });
+
+    logoutBtn.addEventListener('click', async () => {
+      await fetch(BACKEND + '/auth/logout', { method: 'POST', credentials: 'include' });
+      window.location.href = 'login.html';
+    });
+
+    (async () => { await checkAuth(); await loadCakes(); })();
+  </script>
+</body>
+</html>

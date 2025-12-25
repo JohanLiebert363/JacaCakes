@@ -1,0 +1,8 @@
+node_modules/
+db.sqlite
+uploads/
+.env
+npm-debug.log*
+dist/
+/.vscode/
+.DS_Store
